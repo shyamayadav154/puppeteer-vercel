@@ -12,6 +12,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 
 app.get("/api", async (req, res) => {
   let options = {};
+  const link = "https://mevvit.com/r/amitb";
 
   if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
     options = {
