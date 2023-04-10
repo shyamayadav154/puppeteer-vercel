@@ -24,14 +24,25 @@ app.get("/api", async (req, res) => {
   }
 
   try {
-    let browser = await puppeteer.launch(options);
+    const browser = await puppeteer.launch(options);
 
-    let page = await browser.newPage();
-    await page.goto("https://www.google.com");
-    res.send(await page.title());
-  } catch (err) {
-    console.error(err);
-    return null;
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1366, height: 768 });
+    await page.goto(link, { waitUntil: "networkidle2" });
+    // retry if 404
+    if (page.url().includes("404")) {
+      await page.goto(link, { waitUntil: "networkidle2" });
+    }
+    const screenshot = await page.screenshot({
+      type: "jpeg",
+      clip: { x: 240, y: 20, width: 900, height: 600 },
+    });
+    await browser.close();
+
+    res.set("Content-Type", "image/jpeg");
+    res.send(screenshot);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 });
 
