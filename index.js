@@ -29,10 +29,10 @@ app.get("/", async (req, res) => {
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1366, height: 768 });
-    await page.goto(link, { waitUntil: "networkidle2" });
+    await page.goto(link, { waitUntil: "domcontentloaded" });
     // retry if 404
     if (page.url().includes("404")) {
-      await page.goto(link, { waitUntil: "networkidle2" });
+      await page.goto(link, { waitUntil: "domcontentloaded" });
     }
     const screenshot = await page.screenshot({
       type: "jpeg",
