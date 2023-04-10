@@ -10,7 +10,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
   puppeteer = require("puppeteer");
 }
 
-app.get("/api", async (req, res) => {
+app.get("/", async (req, res) => {
   let options = {};
   const link = "https://mevvit.com/r/amitb";
 
@@ -36,7 +36,7 @@ app.get("/api", async (req, res) => {
     }
     const screenshot = await page.screenshot({
       type: "jpeg",
-      clip: { x: 240, y: 20, width: 900, height: 600 },
+      clip: { x: 240, y: 50, width: 900, height: 600 },
     });
     await browser.close();
 
