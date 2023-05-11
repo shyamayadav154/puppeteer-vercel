@@ -35,12 +35,12 @@ app.get("/", async (req, res) => {
       await page.goto(link, { waitUntil: "domcontentloaded" });
     }
     const screenshot = await page.screenshot({
-      type: "jpeg",
+      type: "png",
       clip: { x: 240, y: 50, width: 900, height: 600 },
     });
     await browser.close();
 
-    res.set("Content-Type", "image/jpeg");
+    res.set("Content-Type", "image/png");
     res.send(screenshot);
   } catch (error) {
     res.status(500).send({ error: error.message });
