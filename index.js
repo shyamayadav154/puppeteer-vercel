@@ -29,6 +29,14 @@ app.get("/", async (req, res) => {
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1366, height: 768 });
+    await page.setRequestInterception(true)
+    //check resourceType is script
+    page.on('request', request => {
+       if (request.resourceType() === 'script')
+          request.abort();
+       else
+          request.continue();
+    })
     await page.goto(link, { waitUntil: "domcontentloaded" });
     // retry if 404
     if (page.url().includes("404")) {
