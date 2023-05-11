@@ -12,7 +12,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 
 app.get("/", async (req, res) => {
   let options = {};
-  const link = "https://mevvit.com/r/amitb";
+  const link = "https://jetcv.co/r/amitb";
 
   if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
     options = {
